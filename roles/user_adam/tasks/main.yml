@@ -18,3 +18,40 @@
     state: present
     key: https://github.com/jaswinford.keys
     exclusive: true
+
+- name: Clone dotfiles repo
+  ansible.builtin.git:
+    repo: https://github.com/jaswinford/dotfiles.git
+    dest: /home/adam/dotfiles
+    update: true
+  become_user: adam
+
+- name: Check for dotfiles setup script
+  ansible.builtin.stat:
+    path: "/home/adam/dotfiles/{{ item }}"
+  loop:
+    - install.sh
+    - install
+    - bootstrap.sh
+    - bootstrap
+    - script/bootstrap
+    - setup.sh
+    - setup
+    - script/setup
+  register: dotfiles_script_candidates
+  become_user: adam
+
+- name: Set dotfiles setup script path
+  ansible.builtin.set_fact:
+    dotfiles_setup_script: "{{ item.item }}"
+  loop: "{{ dotfiles_script_candidates.results }}"
+  when:
+    - item.stat.exists
+    - dotfiles_setup_script is not defined
+
+- name: Run dotfiles setup script
+  ansible.builtin.command:
+    cmd: "/home/adam/dotfiles/{{ dotfiles_setup_script }}"
+    chdir: /home/adam/dotfiles
+  become_user: adam
+  when: dotfiles_setup_script is defined

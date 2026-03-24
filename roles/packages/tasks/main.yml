@@ -2,6 +2,7 @@
 - name: Install base packages
   ansible.builtin.apt:
     name:
+      - git
       - neovim
       - btop
       - prometheus-node-exporter
