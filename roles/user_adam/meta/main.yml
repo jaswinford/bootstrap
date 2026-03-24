@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: adam
+  description: Ensure adam user exists, is in sudo group, and has authorized keys synced from GitHub
+  license: MIT
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+  galaxy_tags:
+    - users
+    - ssh
+    - sudo
+
+dependencies: []

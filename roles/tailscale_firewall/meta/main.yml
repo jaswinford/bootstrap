@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  author: adam
+  description: Restrict inbound traffic to Tailscale interface via UFW
+  license: MIT
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+  galaxy_tags:
+    - tailscale
+    - ufw
+    - firewall
+    - security
+
+dependencies: []

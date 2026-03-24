@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: adam
+  description: Install base packages on all hosts
+  license: MIT
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+  galaxy_tags:
+    - packages
+    - apt
+
+dependencies: []
