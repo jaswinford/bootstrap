@@ -24,6 +24,7 @@
     repo: https://github.com/jaswinford/dotfiles.git
     dest: /home/adam/dotfiles
     update: true
+  become: true
   become_user: adam
 
 - name: Check for dotfiles setup script
@@ -39,6 +40,7 @@
     - setup
     - script/setup
   register: dotfiles_script_candidates
+  become: true
   become_user: adam
 
 - name: Set dotfiles setup script path
@@ -53,5 +55,6 @@
   ansible.builtin.command:
     cmd: "/home/adam/dotfiles/{{ dotfiles_setup_script }}"
     chdir: /home/adam/dotfiles
+  become: true
   become_user: adam
   when: dotfiles_setup_script is defined

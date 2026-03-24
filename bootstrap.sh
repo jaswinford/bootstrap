@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Must be run as root (sudo is not available on a fresh Proxmox host)
+if [[ "${EUID}" -ne 0 ]]; then
+  echo "[error]   this script must be run as root" >&2
+  exit 1
+fi
+
 # 1. Ensure Ansible is installed
 if ! command -v ansible-playbook &>/dev/null; then
   echo "[install] ansible not found — installing via apt"
-  sudo apt-get update -qq
-  sudo apt-get install -y ansible
+  apt-get update -qq
+  apt-get install -y ansible
 else
   echo "[skip]    ansible already installed"
 fi
@@ -20,7 +26,7 @@ fi
 
 if ! ip link show tailscale0 &>/dev/null; then
   echo "[up]      tailscale0 not found — bringing Tailscale up"
-  sudo tailscale up
+  tailscale up
 else
   echo "[skip]    tailscale0 already up"
 fi

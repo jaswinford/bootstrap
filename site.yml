@@ -2,7 +2,6 @@
 - name: Bootstrap this host
   hosts: localhost
   connection: local
-  become: true
   roles:
     - packages
     - user_adam
